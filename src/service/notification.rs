@@ -10,7 +10,7 @@ use crate::repository::subscriber::SubscriberRepository;
 
 pub struct NotificationService;
 
-impl NotificationServiceP{
+impl NotificationService{
 
     pub fn subscribe(product_type: &str, subscriber: Subscriber) -> Result<Subscriber> {
         let product_type_upper: String = product_type.to_uppercase();
@@ -19,16 +19,16 @@ impl NotificationServiceP{
 
         return Ok(subscriber_result);
     }
-    pub fn unsubscribe(product_type: &str, url: %str) -> Result<Subscriber> {
+    pub fn unsubscribe(product_type: &str, url: &str) -> Result<Subscriber> {
         let product_type_upper: String = product_type.to_uppercase();
         let product_type_str: &str = product_type_upper.as_str();
         let result: Option<Subscriber> = SubscriberRepository::delete(product_type_str, url);
 
         if result.is_none(){
-            return Err(compose_error_response("Subscriber not found", Status::NotFound));
+            return Err(compose_error_response(Status::NotFound, String::from("Subscriber not found.")));
         }
 
-        return Ok(subscriber_result);
+        return Ok(result.unwrap());
     }
 
     pub fn notify(&self, product_type: &str, status: &str, product: Product){
@@ -38,7 +38,7 @@ impl NotificationServiceP{
             product_url: product.clone().get_url(),
             subscriber_name: String :: from(""), 
             status: String::from(status),
-        }
+        };
 
         let subscribers: Vec<Subscriber> = SubscriberRepository::list_all(product_type);
         for subscriber in subscribers {
