@@ -79,10 +79,31 @@ This is the place for you to write reflections:
 #### Reflection Publisher-1
 
 ##### Question 1
+Traits are unnecessary in this scenario since we only have one type of publisher and subscriber relationship. It would be more beneficial to utilize traits if we anticipate multiple implementations.
+
 ##### Question 2
+`Vec` allows duplicate keys, the keys in this case are `id` in `Program` and `url` in `Subscriber`, that are in intended to be unique. `DashMap` is necessary to enforce unique keys. 
 ##### Question 3
+`DashMap` is essential for our application as we implement multi-threading to guarantee thread safety while accessing the `SUBSCRIBERS` variable.
 
 
 #### Reflection Publisher-2
+##### Question 1 
+Based on the separation of concerns design patterns, we separate the `Service` and `Repository` since they are doing different things, business logic and data storage, respectively. 
+
+##### Question 2
+Then the code complexity will significantly increases, adhere to the separation of concern design pattern, the `Service`, `Controller`, and `Repository` will handle the codebase separately. Making them easier to develop, debug, and scale. 
+
+##### Question 3
+`Postman` is a great tools for testing API endpoints. I personally use directly in the browser to test the API of my past projects. However, I am keen on explore the feature of the `Postman` since it can differentiate cookies between sites. 
 
 #### Reflection Publisher-3
+
+##### Question 1
+We use Push model, where `publisher` pushes data to `subscriber`, since we have the `notify` function that notifies the `subscribers`. 
+
+##### Question 2
+Advantage of Pull model is reduced network traffic: With the Pull variation, subscribers can request data from the publisher only when they need it. This can help reduce unnecessary network traffic and improve overall performance. While the disadvantage of the Pull model is Delayed updates: Since subscribers need to actively request updates, there might be a delay between the time an update is available and when it is actually received by the subscribers.
+
+##### Question 3
+Multi-threading, the publisher can notify multiple subscribers at the same time, each on a separate thread. This can significantly speed up the notification process and improve the overall performance of the program, especially in scenarios with many subscribers or time-consuming notification processing.
